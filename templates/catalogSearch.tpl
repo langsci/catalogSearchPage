@@ -23,7 +23,7 @@
 
     <div>
         <div class="monograph_count cs_search_input" >
-            <input type="text" id="searchPattern" onkeyup="searchCatalog()" value="" placeholder={translate key="plugins.generic.catalogSearchPage.SearchPlaceholder"} size=60>
+            <input type="text" id="searchPattern" onkeyup="searchCatalog()" value="" placeholder="{translate key="plugins.generic.catalogSearchPage.SearchPlaceholder"}" size=60>
         </div>
         <div id="monograph_count" class="monograph_count">
             {translate key="catalog.browseTitles" numTitles=$monographs|@count}

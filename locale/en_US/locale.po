@@ -36,7 +36,7 @@ msgid "plugins.generic.catalogSearchPage.TableColLabelTitle"
 msgstr "Title"
 
 msgid "plugins.generic.catalogSearchPage.TableColLabelSeries"
-msgstr "Series/Volume"
+msgstr "Series"
 
 msgid "plugins.generic.catalogSearchPage.TableColLabelYear"
 msgstr "Year"
