@@ -64,7 +64,8 @@
             <table id="catalog_table" class="cs_catalog_table">
                 <thead>
                     <tr>
-                        <th data-type="title-asc" colspan="2" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
+                        <th data-type="" class="cs_col"></th>
+                        <th data-type="title-asc" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
                         <th data-type="series-asc" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</th>
                         <th data-type="year-asc" class="cs_col_year">{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</th>
                     </tr>
@@ -96,9 +97,8 @@
                                     <div class="seriesPosition">
                                         {assign var=pubs value=$monograph->getData('publications')}
                                         <a {if $press}href="{url press=$press->getPath() page="catalog" op="series" path=$monograph->getData('seriesPath')}"{else}href="{url page="catalog" op="series" path=$monograph->getData('seriesPath')}"{/if}>
-                                            {$monograph->getData('seriesPath')|escape}{" "}
+                                            {$monograph->getData('seriesPath')|escape}
                                         </a>
-                                        {$monograph->getSeriesPosition()|escape}
                                     </div>
                                 {/if}
                             </td>
