@@ -1,9 +1,9 @@
 // search catalog table
 function searchCatalog() {
     $("#searchPattern").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
+        var values = $(this).val().toLowerCase().split(" ").filter(n => n);
         $("#catalog_table tbody tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            return $(this).toggle(values.every(x => $(this).text().toLowerCase().indexOf(x) > -1));
         });
         $("#monograph_count")[0].innerText = $("#monograph_count")[0].innerText.replace(/\d+/g,  $("#catalog_table tbody tr").filter(":visible").length);
     })
