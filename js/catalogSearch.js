@@ -116,7 +116,6 @@ function updatePages() {
     // reset
     $("#catalog_table tbody tr").show();
     $("#searchPattern").trigger("keyup");
-    updateTable();
 }
 
 function initTable() {
