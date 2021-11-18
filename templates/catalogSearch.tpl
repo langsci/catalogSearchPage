@@ -23,7 +23,7 @@
 
     <div>
         <div class="monograph_count cs_search_input" >
-            <input type="text" id="searchPattern" onkeyup="searchCatalog()" value="" placeholder="{translate key="plugins.generic.catalogSearchPage.SearchPlaceholder"}" size=60>
+            <input type="text" id="searchPattern" value="" placeholder="{translate key="plugins.generic.catalogSearchPage.SearchPlaceholder"}" size=60>
         </div>
         <div id="monograph_count" class="monograph_count">
             {translate key="catalog.browseTitles" numTitles=$monographs|@count}
@@ -65,8 +65,8 @@
                 <thead>
                     <tr>
                         <th data-type="" class="cs_col">
-                            <select id="pageLimits" class="cs_page_limits">
-                                <option value=5>5</option>
+                            <select id="pageLimits" class="cs_page_limits" onchange="initTable()">
+                                <option value=2>2</option>
                                 <option value=10>10</option>
                                 <option value=25 selected>25</option>
                                 <option value=50>50</option>

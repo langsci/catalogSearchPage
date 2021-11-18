@@ -6,8 +6,8 @@ function searchCatalog() {
             return $(this).toggle(values.every(x => $(this).text().toLowerCase().indexOf(x) > -1));
         });
         $("#monograph_count")[0].innerText = $("#monograph_count")[0].innerText.replace(/\d+/g,  $("#catalog_table tbody tr").filter(":visible").length);
+        updateTable();
     })
-    initPagination();
 };
 
 // sort catalog table
@@ -60,7 +60,9 @@ function sortGrid(colNum, type) {
     tbody.append(...rowsArray);
 }
 
-function initPagination() { 
+function updateTable() {
+
+    // paginate results
     var totalRows = $('#catalog_table').find('tbody tr:has(td):visible').length;
     var recordPerPage = $('#PageLimit, option:selected')[0].value;
 
@@ -72,7 +74,6 @@ function initPagination() {
         var totalPages = Math.ceil(totalRows / recordPerPage); 
         
         // create pagination div
-        
         var $pages = $('#pagination');
         $('<span class="cs_pageNumber" data-n="prev">&nbsp;&lt;</span>').appendTo($pages);
         for (i = 0; i < totalPages; i++) {  
@@ -111,4 +112,16 @@ function initPagination() {
     }
 }
 
-jQuery(initPagination());
+function updatePages() {
+    // reset
+    $("#catalog_table tbody tr").show();
+    $("#searchPattern").trigger("keyup");
+    updateTable();
+}
+
+function initTable() {
+    searchCatalog();
+    updateTable();
+}
+
+jQuery(initTable());
