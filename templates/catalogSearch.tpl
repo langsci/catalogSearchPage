@@ -66,10 +66,11 @@
                     <tr>
                         <th data-type="" class="cs_col">
                             <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
-                                <option value=2>2</option>
+                                <option value=5>5</option>
                                 <option value=10>10</option>
                                 <option value=25 selected>25</option>
                                 <option value=50>50</option>
+                                <option value=150>150</option>
                             </select>
                         </th>
                         <th data-type="title-asc" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
