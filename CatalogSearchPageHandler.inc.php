@@ -40,7 +40,7 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		$params = array(
 			'contextId' => $context->getId(),
 			'orderByFeatured' => true,
-			'orderBy' => $orderBy,
+			'orderBy' => 'id', // there are submissions  missing when odered by publication date or title
 			'orderDirection' => $orderDir == SORT_DIRECTION_ASC ? 'ASC' : 'DESC',
 			'status' => STATUS_PUBLISHED,
 		);
@@ -64,7 +64,6 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		$templateMgr->assign(array(
 			'monographs' => $monographs,
 			'baseurl' => $request->getBaseUrl()
-			//'featured' => $featuredMonographIds,
 		));
 
 		$tableViewComponent = new CatalogTableViewComponent(
@@ -92,6 +91,8 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		);
 
 		$templateMgr->assign('tableViewComponent', $tableViewComponent);
+
+		$templateMgr->addJavaScript('catalogSearch', $request->getBaseUrl()."/plugins/generic/catalogSearchPage/js/catalogSearch.js");
 
         $templateMgr->display('catalogSearch.tpl');
     }

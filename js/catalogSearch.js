@@ -7,6 +7,7 @@ function searchCatalog() {
         });
         $("#monograph_count")[0].innerText = $("#monograph_count")[0].innerText.replace(/\d+/g,  $("#catalog_table tbody tr").filter(":visible").length);
     })
+    initPagination();
 };
 
 // sort catalog table
@@ -58,3 +59,56 @@ function sortGrid(colNum, type) {
 
     tbody.append(...rowsArray);
 }
+
+function initPagination() { 
+    var totalRows = $('#catalog_table').find('tbody tr:has(td):visible').length;
+    var recordPerPage = $('#PageLimit, option:selected')[0].value;
+
+    $('.cs_pageNumber').remove();
+    $('#pagination')[0].dataset.page = 1;
+
+    if (totalRows > recordPerPage) {
+
+        var totalPages = Math.ceil(totalRows / recordPerPage); 
+        
+        // create pagination div
+        
+        var $pages = $('#pagination');
+        $('<span class="cs_pageNumber" data-n="prev">&nbsp;&lt;</span>').appendTo($pages);
+        for (i = 0; i < totalPages; i++) {  
+            $('<span class="cs_pageNumber" data-n="' + (i + 1) + '">&nbsp;' + (i + 1) + '</span>').appendTo($pages); 
+        }
+        $('<span class="cs_pageNumber" data-n="next">&nbsp;&gt;</span>').appendTo($pages);
+
+        // add focus style to page numbers
+        $('.cs_pageNumber').on("mouseenter", function() {
+            $(this).addClass('cs_focus');
+        }).on("mouseleave", function() {
+            $(this).removeClass('cs_focus');
+        });
+
+        // show first page
+        $('table tbody tr:has(td)').slice(recordPerPage, totalRows).hide();
+
+        // bind event to show subsquent pages
+        $('.cs_pageNumber').on("click", function() {
+            var totalPages = $('.cs_pageNumber').length - 2;
+
+            if ($(this)[0].dataset.n == "prev" && $('#pagination')[0].dataset.page > 1) {
+                $('#pagination')[0].dataset.page = parseInt($('#pagination')[0].dataset.page) - 1;
+            } else if ($(this)[0].dataset.n == "next" && $('#pagination')[0].dataset.page < totalPages) {
+                $('#pagination')[0].dataset.page = parseInt($('#pagination')[0].dataset.page) + 1;
+            } else if (parseInt($(this)[0].dataset.n)) {
+                $('#pagination')[0].dataset.page = $(this)[0].dataset.n;
+            };
+            
+            var page = $('#pagination')[0].dataset.page;
+            $('#catalog_table').find('tbody tr:has(td)').hide(); 
+            var nBegin = (page - 1) * recordPerPage;  
+            var nEnd = page * recordPerPage;
+            $('table tbody tr:has(td)').slice(nBegin, nEnd).show();
+        });
+    }
+}
+
+jQuery(initPagination());

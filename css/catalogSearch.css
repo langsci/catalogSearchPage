@@ -1,6 +1,7 @@
 .cs_image {
     width: 80px;
     padding: 5px;
+    text-align: center;
 }
 
 .cs_search_input {
@@ -21,4 +22,25 @@
 
 .cs_col_series {
     text-align: left;
+}
+
+.cs_pagination {
+    text-align: center;
+    width: 100%;
+}
+
+.cs_focus {
+    background-color: #ff00ff;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cs_pageNumber {
+    padding: 2px;
+}
+
+.cs_page_limits {
+    padding: 5px;
+    text-align: center;
 }

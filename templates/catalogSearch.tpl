@@ -61,10 +61,17 @@
                 </{$heading}>
             {/if}
 
-            <table id="catalog_table" class="cs_catalog_table">
+            <table id="catalog_table" class="cs_catalog_table paginated">
                 <thead>
                     <tr>
-                        <th data-type="" class="cs_col"></th>
+                        <th data-type="" class="cs_col">
+                            <select id="pageLimits" class="cs_page_limits">
+                                <option value=5>5</option>
+                                <option value=10>10</option>
+                                <option value=25 selected>25</option>
+                                <option value=50>50</option>
+                            </select>
+                        </th>
                         <th data-type="title-asc" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
                         <th data-type="series-asc" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</th>
                         <th data-type="year-asc" class="cs_col_year">{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</th>
@@ -109,10 +116,9 @@
                     {/foreach}
                 </tbody>
             </table>
-            <script type="text/javascript" src="{$baseurl}/plugins/generic/catalogSearchPage/js/catalogSearch.js"></script>
+            <div id="pagination" class="cs_pagination" data-page="1"></div>
         </div>
 	{/if}
-
 </div><!-- .page -->
 
 {include file="frontend/components/footer.tpl"}
