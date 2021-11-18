@@ -65,7 +65,7 @@
                 <thead>
                     <tr>
                         <th data-type="" class="cs_col">
-                            <select id="pageLimits" class="cs_page_limits" onchange="initTable()">
+                            <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
                                 <option value=2>2</option>
                                 <option value=10>10</option>
                                 <option value=25 selected>25</option>
