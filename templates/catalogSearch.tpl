@@ -64,18 +64,10 @@
             <table id="catalog_table" class="cs_catalog_table paginated">
                 <thead>
                     <tr>
-                        <th data-type="" class="cs_col">
-                            <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
-                                <option value=5>5</option>
-                                <option value=10>10</option>
-                                <option value=25 selected>25</option>
-                                <option value=50>50</option>
-                                <option value=150>150</option>
-                            </select>
-                        </th>
-                        <th data-type="title-asc" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
-                        <th data-type="series-asc" class="cs_col">{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</th>
-                        <th data-type="year-asc" class="cs_col_year">{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</th>
+                        <th data-type="" class="cs_col"></th>
+                        <th data-type="title-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
+                        <th data-type="series-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</th>
+                        <th data-type="year-asc" class="cs_col_year">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,7 +109,15 @@
                     {/foreach}
                 </tbody>
             </table>
-            <div id="pagination" class="cs_pagination" data-page="1"></div>
+            <div id="pagination" class="cs_pagination" data-page="1">
+                <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
+                    {* <option value=2>2</option> dev option *}
+                    <option value=5>5</option>
+                    <option value=10>10</option>
+                    <option value=25 selected>25</option>
+                    <option value=50>50</option>
+                    <option value=150>150</option>
+                </select></div>
         </div>
 	{/if}
 </div><!-- .page -->

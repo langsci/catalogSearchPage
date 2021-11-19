@@ -22,6 +22,7 @@ catalog_table.onclick = function (e) {
     } else {
         th.dataset.type = th.dataset.type.replace("desc", "asc");
     }
+    updatePages();
 };
 
 function sortGrid(colNum, type) {

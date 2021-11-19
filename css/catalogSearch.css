@@ -30,7 +30,7 @@
 }
 
 .cs_focus {
-    background-color: #ff00ff;
+    background-color: #1e6292;
     color: #fff;
     cursor: pointer;
     font-weight: bold;
@@ -41,6 +41,7 @@
 }
 
 .cs_page_limits {
-    padding: 5px;
+    float: left;
     text-align: center;
+    margin-left: 10px;
 }
