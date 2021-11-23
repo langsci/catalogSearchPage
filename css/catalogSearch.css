@@ -29,6 +29,8 @@
 .cs_pagination {
     text-align: center;
     width: 100%;
+    clear: left;
+    border-top: 1px solid #ddd !important;
 }
 
 .cs_focus {
