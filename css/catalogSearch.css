@@ -31,6 +31,8 @@
     width: 100%;
     clear: left;
     border-top: 1px solid #ddd !important;
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
 }
 
 .cs_focus {
