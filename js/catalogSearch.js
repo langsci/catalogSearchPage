@@ -25,7 +25,7 @@ catalog_table.onclick = function (e) {
     updatePages();
 };
 
-function sortGrid(colNum, type) {
+function sortGrid(cs_colNum, type) {
     let tbody = catalog_table.querySelector('tbody');
 
     let rowsArray = Array.from(tbody.rows);
@@ -37,9 +37,9 @@ function sortGrid(colNum, type) {
         case 'year':
             compare = function (rowA, rowB) {
                 if (type.endsWith('asc')) {
-                    return -(rowA.cells[colNum].innerText - rowB.cells[colNum].innerText);
+                    return -(rowA.cells[cs_colNum].innerText - rowB.cells[cs_colNum].innerText);
                 } else {
-                    return rowA.cells[colNum].innerText - rowB.cells[colNum].innerText;
+                    return rowA.cells[cs_colNum].innerText - rowB.cells[cs_colNum].innerText;
                 };
             };
             break;
@@ -47,9 +47,9 @@ function sortGrid(colNum, type) {
         case 'series':
             compare = function (rowA, rowB) {
                 if (type.endsWith('asc')) {
-                    return rowA.cells[colNum].innerText > rowB.cells[colNum].innerText ? -1 : 1;
+                    return rowA.cells[cs_colNum].innerText > rowB.cells[cs_colNum].innerText ? -1 : 1;
                 } else {
-                    return rowA.cells[colNum].innerText > rowB.cells[colNum].innerText ? 1 : -1;
+                    return rowA.cells[cs_colNum].innerText > rowB.cells[cs_colNum].innerText ? 1 : -1;
                 }
             };
             break;
@@ -68,14 +68,14 @@ function updateTable() {
     var recordPerPage = $('#PageLimit, option:selected')[0].value;
 
     $('.cs_pageNumber').remove();
-    $('#pagination')[0].dataset.page = 1;
+    $('.cs_pagination')[0].dataset.page = 1;
 
     if (totalRows > recordPerPage) {
 
         var totalPages = Math.ceil(totalRows / recordPerPage); 
         
         // create pagination div
-        var $pages = $('#pagination');
+        var $pages = $('.cs_pagination');
         $('<span class="cs_pageNumber" data-n="prev">&nbsp;&lt;</span>').appendTo($pages);
         for (i = 0; i < totalPages; i++) {  
             $('<span class="cs_pageNumber" data-n="' + (i + 1) + '">&nbsp;' + (i + 1) + '</span>').appendTo($pages); 
@@ -96,15 +96,15 @@ function updateTable() {
         $('.cs_pageNumber').on("click", function() {
             var totalPages = $('.cs_pageNumber').length - 2;
 
-            if ($(this)[0].dataset.n == "prev" && $('#pagination')[0].dataset.page > 1) {
-                $('#pagination')[0].dataset.page = parseInt($('#pagination')[0].dataset.page) - 1;
-            } else if ($(this)[0].dataset.n == "next" && $('#pagination')[0].dataset.page < totalPages) {
-                $('#pagination')[0].dataset.page = parseInt($('#pagination')[0].dataset.page) + 1;
+            if ($(this)[0].dataset.n == "prev" && $('.cs_pagination')[0].dataset.page > 1) {
+                $('.cs_pagination')[0].dataset.page = parseInt($('.cs_pagination')[0].dataset.page) - 1;
+            } else if ($(this)[0].dataset.n == "next" && $('.cs_pagination')[0].dataset.page < totalPages) {
+                $('.cs_pagination')[0].dataset.page = parseInt($('.cs_pagination')[0].dataset.page) + 1;
             } else if (parseInt($(this)[0].dataset.n)) {
-                $('#pagination')[0].dataset.page = $(this)[0].dataset.n;
+                $('.cs_pagination')[0].dataset.page = $(this)[0].dataset.n;
             };
             
-            var page = $('#pagination')[0].dataset.page;
+            var page = $('.cs_pagination')[0].dataset.page;
             $('#catalog_table').find('tbody tr:has(td)').hide(); 
             var nBegin = (page - 1) * recordPerPage;  
             var nEnd = page * recordPerPage;

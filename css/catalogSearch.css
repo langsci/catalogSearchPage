@@ -14,10 +14,12 @@
 
 .cs_col {
     text-align: center;
+    cursor: pointer;
 }
 
-.cs_col_year {
+.cs_col_year{
     width: 60px;
+    cursor: pointer;
 }
 
 .cs_col_series {
@@ -41,7 +43,6 @@
 }
 
 .cs_page_limits {
-    float: left;
-    text-align: center;
-    margin-left: 10px;
+    position: absolute;
+    left: 2%;
 }

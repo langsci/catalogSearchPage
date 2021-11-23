@@ -61,6 +61,9 @@
                 </{$heading}>
             {/if}
 
+            <div id="pagination_top" class="cs_pagination" data-page="1">
+            </div>
+
             <table id="catalog_table" class="cs_catalog_table paginated">
                 <thead>
                     <tr>
@@ -94,10 +97,10 @@
                             </td>
                             <td class="cs_col_series">
                        	    	{if $monograph->getSeriesPosition()}
-                                    <div class="seriesPosition">
+                                    <div class="seriesPosition tooltip" title="{$monograph->getData('seriesTitle')|escape}">
                                         {assign var=pubs value=$monograph->getData('publications')}
                                         <a {if $press}href="{url press=$press->getPath() page="catalog" op="series" path=$monograph->getData('seriesPath')}"{else}href="{url page="catalog" op="series" path=$monograph->getData('seriesPath')}"{/if}>
-                                            {$monograph->getData('seriesPath')|escape}
+                                            {$monograph->getData('seriesPath')|escape|upper}
                                         </a>
                                     </div>
                                 {/if}
@@ -109,7 +112,7 @@
                     {/foreach}
                 </tbody>
             </table>
-            <div id="pagination" class="cs_pagination" data-page="1">
+            <div id="pagination_bottom" class="cs_pagination" data-page="1">
                 <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
                     {* <option value=2>2</option> dev option *}
                     <option value=5>5</option>
@@ -117,7 +120,8 @@
                     <option value=25 selected>25</option>
                     <option value=50>50</option>
                     <option value=150>150</option>
-                </select></div>
+                </select>
+            </div>
         </div>
 	{/if}
 </div><!-- .page -->

@@ -40,7 +40,7 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		$params = array(
 			'contextId' => $context->getId(),
 			'orderByFeatured' => true,
-			'orderBy' => 'id', // there are submissions  missing when odered by publication date or title
+			'orderBy' => $orderBy, // there are submissions  missing when odered by publication date or title
 			'orderDirection' => $orderDir == SORT_DIRECTION_ASC ? 'ASC' : 'DESC',
 			'status' => STATUS_PUBLISHED,
 		);
