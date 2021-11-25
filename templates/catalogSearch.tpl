@@ -96,7 +96,7 @@
                                 </div>
                             </td>
                             <td class="cs_col_series">
-                       	    	{if $monograph->getSeriesPosition()}
+                       	    	{if $monograph->getData('seriesPath')}
                                     <div class="seriesPosition tooltip" title="{$monograph->getData('seriesTitle')|escape}">
                                         {assign var=pubs value=$monograph->getData('publications')}
                                         <a {if $press}href="{url press=$press->getPath() page="catalog" op="series" path=$monograph->getData('seriesPath')}"{else}href="{url page="catalog" op="series" path=$monograph->getData('seriesPath')}"{/if}>
