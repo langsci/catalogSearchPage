@@ -47,9 +47,9 @@ function sortGrid(cs_colNum, type) {
         case 'series':
             compare = function (rowA, rowB) {
                 if (type.endsWith('asc')) {
-                    return rowA.cells[cs_colNum].innerText > rowB.cells[cs_colNum].innerText ? -1 : 1;
+                    return rowA.cells[cs_colNum].innerText.replace(/\s+/g,"") > rowB.cells[cs_colNum].innerText.replace(/\s+/g,"") ? -1 : 1;
                 } else {
-                    return rowA.cells[cs_colNum].innerText > rowB.cells[cs_colNum].innerText ? 1 : -1;
+                    return rowA.cells[cs_colNum].innerText.replace(/\s+/g,"") > rowB.cells[cs_colNum].innerText.replace(/\s+/g,"") ? 1 : -1;
                 }
             };
             break;
