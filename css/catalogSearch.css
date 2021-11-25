@@ -50,3 +50,7 @@
     position: absolute;
     left: 2%;
 }
+
+.cs_border_none {
+    border: transparent;
+}

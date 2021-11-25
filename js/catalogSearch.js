@@ -110,6 +110,8 @@ function updateTable() {
             var nEnd = page * recordPerPage;
             $('table tbody tr:has(td)').slice(nBegin, nEnd).show();
         });
+    } else {
+        $('.cs_pagination').addClass('cs_border_none')
     }
 }
 

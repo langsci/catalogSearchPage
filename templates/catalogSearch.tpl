@@ -100,7 +100,7 @@
                                     <div class="seriesPosition tooltip" title="{$monograph->getData('seriesTitle')|escape}">
                                         {assign var=pubs value=$monograph->getData('publications')}
                                         <a {if $press}href="{url press=$press->getPath() page="catalog" op="series" path=$monograph->getData('seriesPath')}"{else}href="{url page="catalog" op="series" path=$monograph->getData('seriesPath')}"{/if}>
-                                            {$monograph->getData('seriesPath')|escape|upper}
+                                            {$monograph->getData('seriesPath')|escape|upper|regex_replace:"/\s+/":""}
                                         </a>
                                     </div>
                                 {/if}
