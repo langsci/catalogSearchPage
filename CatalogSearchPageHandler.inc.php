@@ -53,6 +53,10 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 				$monograph->setData('seriesPath', $series->getData('path'));
 			}
 		}
+		
+		uasort($monographs, function($a, $b) {
+			return $a->getCurrentPublication()->getLocalizedFullTitle() > $b->getCurrentPublication()->getLocalizedFullTitle() ? 1 : -1;
+		});
 
 		$templateMgr->assign(array(
 			'monographs' => $monographs,

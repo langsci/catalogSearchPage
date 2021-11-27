@@ -130,7 +130,6 @@ function updatePages() {
 
 function initTable() {
     searchCatalog();
-    $('#catalog_table #title').trigger('click');
     updateTable();
 }
 
