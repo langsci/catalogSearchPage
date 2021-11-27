@@ -1,3 +1,11 @@
+/* 
+ * @file plugins/generic/catalogSearchPage/js/catalogSearch.js
+ * 
+ * Copyright (c) 2021 Language Science Press
+ * Developed by Ronald Steffen
+ * Distributed under the GNU GPL v3. For full terms see the file docs/LICENSE.
+ */
+
 // search catalog table
 function searchCatalog() {
     $("#searchPattern").on("keyup", function () {
@@ -57,7 +65,6 @@ function sortGrid(cs_colNum, type) {
 
     // sort
     rowsArray.sort(compare);
-
     tbody.append(...rowsArray);
 }
 
@@ -111,7 +118,7 @@ function updateTable() {
             $('table tbody tr:has(td)').slice(nBegin, nEnd).show();
         });
     } else {
-        $('.cs_pagination').addClass('cs_border_none')
+        $('.cs_pagination').addClass('cs_border_none');
     }
 }
 
@@ -123,6 +130,7 @@ function updatePages() {
 
 function initTable() {
     searchCatalog();
+    $('#catalog_table #title').trigger('click');
     updateTable();
 }
 

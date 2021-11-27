@@ -40,32 +40,11 @@ class CatalogSearchPagePlugin extends GenericPlugin
                     // register hooks
                     HookRegistry::register('LoadHandler', array($this, 'loadCatalogSearchPageHandler'));
                     HookRegistry::register('TemplateResource::getFilename', array($this, 'getTemplateFilePath'));
-                    HookRegistry::register('Publication::publish', array($this, 'testSearchIndex'));
-                    HookRegistry::register('Publication::unpublish', array($this, 'testSearchIndex'));
-                    define('SUBMISSION_SEARCH_DATE_PUBLISHED',	0x00000200);
-                    define('SUBMISSION_SEARCH_SERIES_TITLE',	0x00000210);
                 }
             }
             return $success;
         }
         return $success;
-    }
-
-    function testSearchIndex($hookname, $params) {
-        $publication = $params[1];
-        $submission = $params[2];
-
-        //
-        // Get the series
-		$seriesDao = DAORegistry::getDAO('SeriesDAO'); /* @var $seriesDao SeriesDAO */
-		$series = $seriesDao->getById($publication->getData('seriesId'));
-
-        // Update search index
-		import('classes.search.MonographSearch');
-		$submissionId = $submission->getId();
-		Application::getSubmissionSearchIndex()->updateTextIndex($submissionId, SUBMISSION_SEARCH_DATE_PUBLISHED, date('Y', strtotime($publication->getData('datePublished'))));
-        Application::getSubmissionSearchIndex()->updateTextIndex($submissionId, SUBMISSION_SEARCH_SERIES_TITLE, $series->getLocalizedTitle());
-        return;
     }
 
     function loadCatalogSearchPageHandler($hookname, $params) {

@@ -1,9 +1,9 @@
 {**
  * templates/catalogSearch.tpl adopted from templates/frontend/pages/catalog.tpl
  *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
- * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ * Copyright (c) 2021 Language Science Press
+ * Developed by Ronald Steffen
+ * Distributed under the GNU GPL v3. For full terms see the file docs/LICENSE.
  *
  * @brief Display the page to view the catalog.
  *
@@ -68,9 +68,9 @@
                 <thead>
                     <tr>
                         <th data-type="" class="cs_col"></th>
-                        <th data-type="title-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
-                        <th data-type="series-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</th>
-                        <th data-type="year-asc" class="cs_col_year">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</th>
+                        <th id="title" data-type="title-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
+                        <th id="series" data-type="series-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</th>
+                        <th id="year" data-type="year-asc" class="cs_col_year">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</th>
                     </tr>
                 </thead>
                 <tbody>

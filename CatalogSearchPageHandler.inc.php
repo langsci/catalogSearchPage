@@ -13,7 +13,6 @@
  */
 
 import('lib.pkp.pages.catalog.PKPCatalogHandler');
-import('plugins.generic.catalogSearchPage.CatalogTableViewComponent');
 
 class CatalogSearchPageHandler extends PKPCatalogHandler
 {
@@ -36,20 +35,14 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		list($orderBy, $orderDir) = explode('-', $orderOption);
 
 		$submissionService = Services::get('submission');
-
 		$params = array(
 			'contextId' => $context->getId(),
 			'orderByFeatured' => true,
-			'orderBy' => $orderBy, // there are submissions  missing when odered by publication date or title
+			'orderBy' => $orderBy,
 			'orderDirection' => $orderDir == SORT_DIRECTION_ASC ? 'ASC' : 'DESC',
 			'status' => STATUS_PUBLISHED,
 		);
-		$submissionsIterator = $submissionService->getMany($params);
-
-		$featureDao = DAORegistry::getDAO('FeatureDAO'); /* @var $featureDao FeatureDAO */
-		$featuredMonographIds = $featureDao->getSequencesByAssoc(ASSOC_TYPE_PRESS, $context->getId());
-
-		$monographs = iterator_to_array($submissionsIterator);
+		$monographs = iterator_to_array($submissionService->getMany($params));
 
 		$seriesDao = DAORegistry::getDAO('SeriesDAO'); /* @var $seriesDao SeriesDAO */
 		foreach ($monographs as $monograph) {
@@ -65,32 +58,6 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 			'monographs' => $monographs,
 			'baseurl' => $request->getBaseUrl()
 		));
-
-		$tableViewComponent = new CatalogTableViewComponent(
-			$request->getDispatcher()->url($request, ROUTE_API, $context->getPath(), 'catalogSearch/index'),
-			[
-				'tableColumns' => [
-					[
-						'name' => 'name',
-						'label' => __('common.name'),
-						'value' => 'name',
-					],
-					[
-						'name' => 'dateRange',
-						'label' => ' — ',
-						'value' => 'dateRange',
-					],
-					[
-						'name' => 'total',
-						'label' => __('stats.total'),
-						'value' => 'total',
-					],
-				],
-				'tableRows' => [[1,2,3],[1,2,3],[1,2,3]],
-			]
-		);
-
-		$templateMgr->assign('tableViewComponent', $tableViewComponent);
 
 		$templateMgr->addJavaScript('catalogSearch', $request->getBaseUrl()."/plugins/generic/catalogSearchPage/js/catalogSearch.js");
 
