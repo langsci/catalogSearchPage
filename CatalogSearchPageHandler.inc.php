@@ -14,6 +14,8 @@
 
 import('lib.pkp.pages.catalog.PKPCatalogHandler');
 
+define('PERFORMANCE_TEST', false);
+
 class CatalogSearchPageHandler extends PKPCatalogHandler
 {
 
@@ -34,6 +36,10 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		$orderOption = $context->getData('catalogSortOption') ? $context->getData('catalogSortOption') : ORDERBY_DATE_PUBLISHED . '-' . SORT_DIRECTION_DESC;
 		list($orderBy, $orderDir) = explode('-', $orderOption);
 
+		if (PERFORMANCE_TEST) {
+			$start = microtime(true);
+		}
+
 		$submissionService = Services::get('submission');
 		$params = array(
 			'contextId' => $context->getId(),
@@ -45,6 +51,7 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		$monographs = iterator_to_array($submissionService->getMany($params));
 
 		$seriesDao = DAORegistry::getDAO('SeriesDAO'); /* @var $seriesDao SeriesDAO */
+		
 		foreach ($monographs as $monograph) {
 			// Get the series for this monograph
 			$series = $seriesDao->getById( $monograph->getData('publications')[0]->getData('seriesId'),$context->getId());
@@ -53,7 +60,11 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 				$monograph->setData('seriesPath', $series->getData('path'));
 			}
 		}
-		
+
+		if (PERFORMANCE_TEST) {
+			error_log("RS_PERF:CalatloSearch:foreach: ".print_r(microtime(true) - $start,true));
+		}
+
 		uasort($monographs, function($a, $b) {
 			return $a->getCurrentPublication()->getLocalizedFullTitle() > $b->getCurrentPublication()->getLocalizedFullTitle() ? 1 : -1;
 		});
@@ -66,6 +77,10 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		$templateMgr->addJavaScript('catalogSearch', $request->getBaseUrl()."/plugins/generic/catalogSearchPage/js/catalogSearch.js");
 
         $templateMgr->display('catalogSearch.tpl');
-    }
+
+		if (PERFORMANCE_TEST) {
+			error_log("RS_PERF:CalatloSearch:display: ".print_r(microtime(true) - $start,true));
+    	}
+	}
 }
 ?>

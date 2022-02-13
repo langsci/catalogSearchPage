@@ -78,8 +78,8 @@
                         <tr>
                             <td>
                         		<a {if $press}href="{url press=$press->getPath() page="catalog" op="book" path=$monograph->getBestId()}"{else}href="{url page="catalog" op="book" path=$monograph->getBestId()}"{/if} class="cover">
-                                    {assign var="cover coverImage" value=$monograph->getCurrentPublication()->getLocalizedData('coverImage')}
-                                    <img class="cs_image"
+                                    {* {assign var="cover coverImage" value=$monograph->getCurrentPublication()->getLocalizedData('coverImage')} *}
+                                    <img class="cs_image" loading="lazy"
                                         src="{$monograph->getCurrentPublication()->getLocalizedCoverImageThumbnailUrl($monograph->getData('contextId'))}"
                                         alt="{$coverImage.altText|escape|default:'No alt text provided for this cover image.'}"
                                     >
