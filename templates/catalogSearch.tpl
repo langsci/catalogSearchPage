@@ -88,7 +88,11 @@
                             <td>
                                 <div class="title">
                                     <a {if $press}href="{url press=$press->getPath() page="catalog" op="book" path=$monograph->getBestId()}"{else}href="{url page="catalog" op="book" path=$monograph->getBestId()}"{/if}>
-                                        <strong>{$monograph->getLocalizedFullTitle()|escape}</strong>
+                                        {if $monograph->getData('pubState')}
+                                            <span class="pubState">{$monograph->getData('pubState')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
+                                        {else}
+                                            <strong>{$monograph->getLocalizedFullTitle()|escape}</strong>
+                                        {/if}
                                     </a>
                                 </div>
                         		<div class="author">

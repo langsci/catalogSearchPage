@@ -51,6 +51,9 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		$monographs = iterator_to_array($submissionService->getMany($params));
 
 		$seriesDao = DAORegistry::getDAO('SeriesDAO'); /* @var $seriesDao SeriesDAO */
+
+		# if pubState plugin is installed show label
+		$pubStatePlugin = PluginRegistry::getPlugin('generic', 'pubstateplugin');
 		
 		foreach ($monographs as $monograph) {
 			// Get the series for this monograph
@@ -58,6 +61,9 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 			if ($series) {
 				$monograph->setData('seriesTitle', $series->getLocalizedTitle());
 				$monograph->setData('seriesPath', $series->getData('path'));
+				if ($pubStatePlugin) {
+					$monograph->setData('pubState', $pubStatePlugin->getPubStateLabel($monograph));
+				}
 			}
 		}
 
