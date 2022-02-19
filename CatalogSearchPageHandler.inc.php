@@ -62,7 +62,9 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 				$monograph->setData('seriesTitle', $series->getLocalizedTitle());
 				$monograph->setData('seriesPath', $series->getData('path'));
 				if ($pubStatePlugin) {
-					$monograph->setData('pubState', $pubStatePlugin->getPubStateLabel($monograph));
+					$monograph->setData('pubStateLabel', $pubStatePlugin->getPubStateLabel($monograph));
+					$monograph->setData('pubState', $pubStatePlugin->getPubState($monograph));
+					$pubStatePlugin->loadStyleSheet($request, $templateMgr);
 				}
 			}
 		}

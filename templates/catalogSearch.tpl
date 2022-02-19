@@ -89,7 +89,13 @@
                                 <div class="title">
                                     <a {if $press}href="{url press=$press->getPath() page="catalog" op="book" path=$monograph->getBestId()}"{else}href="{url page="catalog" op="book" path=$monograph->getBestId()}"{/if}>
                                         {if $monograph->getData('pubState')}
-                                            <span class="pubState">{$monograph->getData('pubState')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
+                                            {if $monograph->getData('pubState') == $smarty.const.PUB_STATE_FORTHCOMING}
+                                                <span class="pubState_forthcoming">{$monograph->getData('pubStateLabel')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
+                                            {elseif $monograph->getData('pubState') == $smarty.const.PUB_STATE_SUPERSEDED}
+                                                <span class="pubState_superseded">{$monograph->getData('pubStateLabel')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
+                                            {else}
+                                                {$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
+                                            {/if}                                   
                                         {else}
                                             <strong>{$monograph->getLocalizedFullTitle()|escape}</strong>
                                         {/if}
