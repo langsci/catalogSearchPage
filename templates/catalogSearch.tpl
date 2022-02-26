@@ -28,6 +28,12 @@
         <div id="monograph_count" class="monograph_count">
             {translate key="catalog.browseTitles" numTitles=$monographs|@count}
         </div>
+        <div class="cs_select_pubState">
+            <input type="checkbox" id="includeForthcoming" name="includeForthcoming" value=1 autocomplete="off" checked>
+            <label for="includeForthcoming">Forthcoming</label><br>
+            <input type="checkbox" id="includeSuperseded" name="includeSuperseded" autocomplete="off" value=0>
+            <label for="includeSuperseded">Superseded</label><br>
+        </div>
     </div>
 
 	{* No published titles *}
@@ -90,8 +96,10 @@
                                     <a {if $press}href="{url press=$press->getPath() page="catalog" op="book" path=$monograph->getBestId()}"{else}href="{url page="catalog" op="book" path=$monograph->getBestId()}"{/if}>
                                         {if $monograph->getData('pubState')}
                                             {if $monograph->getData('pubState') == $smarty.const.PUB_STATE_FORTHCOMING}
+                                                <p id="pubState" style="display: none;">{$smarty.const.PUB_STATE_FORTHCOMING}</p>
                                                 <span class="pubState_forthcoming">{$monograph->getData('pubStateLabel')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
                                             {elseif $monograph->getData('pubState') == $smarty.const.PUB_STATE_SUPERSEDED}
+                                                <p id="pubState" style="display: none;">{$smarty.const.PUB_STATE_SUPERSEDED}</p>
                                                 <span class="pubState_superseded">{$monograph->getData('pubStateLabel')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
                                             {else}
                                                 {$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
@@ -124,7 +132,7 @@
             </table>
             <div id="pagination_bottom" class="cs_pagination" data-page="1">
                 <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
-                    {* <option value=2>2</option> dev option *}
+                    <option value=2>2</option> dev option
                     <option value=5>5</option>
                     <option value=10>10</option>
                     <option value=25 selected>25</option>

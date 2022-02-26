@@ -54,3 +54,13 @@
 .cs_border_none {
     border: transparent;
 }
+
+.cs_select_pubState {
+    clear: both;
+    display: flex;
+    margin-bottom: -50px;
+}
+
+div.cs_select_pubState > * {
+    margin: 0 2px;
+}

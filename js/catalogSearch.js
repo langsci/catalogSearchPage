@@ -10,12 +10,34 @@
 function searchCatalog() {
     $("#searchPattern").on("keyup", function () {
         var values = $(this).val().toLowerCase().split(" ").filter(n => n);
+        // filter by text
         $("#catalog_table tbody tr").filter(function () {
             return $(this).toggle(values.every(x => $(this).text().toLowerCase().indexOf(x) > -1));
         });
+        // filter by forthcoming
+        if (!$("#includeForthcoming")[0].checked) {
+            $("#catalog_table tbody tr").filter(function () {
+                if ($(this).find('#pubState')[0]) {
+                    if ($(this).find('#pubState')[0].textContent == 1) {
+                        $(this).hide();
+                    }
+                }
+            });
+        }
+        // filter by superseded
+        if (!$("#includeSuperseded")[0].checked) {
+            $("#catalog_table tbody tr").filter(function () {
+                if ($(this).find('#pubState')[0]) {
+                    if ($(this).find('#pubState')[0].textContent == 3) {
+                        $(this).hide();
+                    }
+                }
+            });
+        }
+        // count hits
         $("#monograph_count")[0].innerText = $("#monograph_count")[0].innerText.replace(/\d+/g,  $("#catalog_table tbody tr").filter(":visible").length);
         updateTable();
-    })
+    });
 };
 
 // sort catalog table
@@ -125,12 +147,15 @@ function updateTable() {
 function updatePages() {
     // reset
     $("#catalog_table tbody tr").show();
+    // do text search
     $("#searchPattern").trigger("keyup");
 }
 
 function initTable() {
+    $("#includeForthcoming").on("change", function(){updatePages();});
+    $("#includeSuperseded").on("change", function(){updatePages();});
     searchCatalog();
-    updateTable();
+    updatePages();
 }
 
 jQuery(initTable());
