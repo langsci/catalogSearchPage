@@ -14,25 +14,27 @@ function searchCatalog() {
         $("#catalog_table tbody tr").filter(function () {
             return $(this).toggle(values.every(x => $(this).text().toLowerCase().indexOf(x) > -1));
         });
-        // filter by forthcoming
-        if (!$("#includeForthcoming")[0].checked) {
-            $("#catalog_table tbody tr").filter(function () {
-                if ($(this).find('#pubState')[0]) {
-                    if ($(this).find('#pubState')[0].textContent == 1) {
-                        $(this).hide();
+        if ($("#includeForthcoming")) {
+            // filter by forthcoming
+            if (!$("#includeForthcoming")[0].checked) {
+                $("#catalog_table tbody tr").filter(function () {
+                    if ($(this).find('#pubState')[0]) {
+                        if ($(this).find('#pubState')[0].textContent == 1) {
+                            $(this).hide();
+                        }
                     }
-                }
-            });
-        }
-        // filter by superseded
-        if (!$("#includeSuperseded")[0].checked) {
-            $("#catalog_table tbody tr").filter(function () {
-                if ($(this).find('#pubState')[0]) {
-                    if ($(this).find('#pubState')[0].textContent == 3) {
-                        $(this).hide();
+                });
+            }
+            // filter by superseded
+            if (!$("#includeSuperseded")[0].checked) {
+                $("#catalog_table tbody tr").filter(function () {
+                    if ($(this).find('#pubState')[0]) {
+                        if ($(this).find('#pubState')[0].textContent == 3) {
+                            $(this).hide();
+                        }
                     }
-                }
-            });
+                });
+            }
         }
         // count hits
         $("#monograph_count")[0].innerText = $("#monograph_count")[0].innerText.replace(/\d+/g,  $("#catalog_table tbody tr").filter(":visible").length);
@@ -152,8 +154,10 @@ function updatePages() {
 }
 
 function initTable() {
-    $("#includeForthcoming").on("change", function(){updatePages();});
-    $("#includeSuperseded").on("change", function(){updatePages();});
+    if ($("#includeForthcoming")) {
+        $("#includeForthcoming").on("change", function(){updatePages();});
+        $("#includeSuperseded").on("change", function(){updatePages();});
+    }
     searchCatalog();
     updatePages();
 }

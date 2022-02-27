@@ -28,7 +28,7 @@
         <div id="monograph_count" class="monograph_count">
             {translate key="catalog.browseTitles" numTitles=$monographs|@count}
         </div>
-        {if $monograph->getData('pubState')}
+        {if $monographs[0]->getData('pubState')}
             <div class="cs_select_pubState">
                 <input type="checkbox" id="includeForthcoming" name="includeForthcoming" value=1 autocomplete="off" checked>
                 <label for="includeForthcoming">Forthcoming</label><br>
@@ -133,7 +133,7 @@
             </table>
             <div id="pagination_bottom" class="cs_pagination" data-page="1">
                 <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
-                    <option value=2>2</option> dev option
+                    {* <option value=2>2</option> dev option *}
                     <option value=5>5</option>
                     <option value=10>10</option>
                     <option value=25 selected>25</option>
