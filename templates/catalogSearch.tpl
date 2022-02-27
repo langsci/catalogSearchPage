@@ -133,7 +133,7 @@
             </table>
             <div id="pagination_bottom" class="cs_pagination" data-page="1">
                 <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
-                    {* <option value=2>2</option> dev option *}
+                    <option value=2>2</option> dev option
                     <option value=5>5</option>
                     <option value=10>10</option>
                     <option value=25 selected>25</option>

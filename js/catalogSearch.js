@@ -14,7 +14,7 @@ function searchCatalog() {
         $("#catalog_table tbody tr").filter(function () {
             return $(this).toggle(values.every(x => $(this).text().toLowerCase().indexOf(x) > -1));
         });
-        if ($("#includeForthcoming")) {
+        if ($("#includeForthcoming").length > 0) {
             // filter by forthcoming
             if (!$("#includeForthcoming")[0].checked) {
                 $("#catalog_table tbody tr").filter(function () {
@@ -154,7 +154,7 @@ function updatePages() {
 }
 
 function initTable() {
-    if ($("#includeForthcoming")) {
+    if ($("#includeForthcoming").length > 0) {
         $("#includeForthcoming").on("change", function(){updatePages();});
         $("#includeSuperseded").on("change", function(){updatePages();});
     }
