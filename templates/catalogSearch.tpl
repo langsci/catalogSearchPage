@@ -28,12 +28,14 @@
         <div id="monograph_count" class="monograph_count">
             {translate key="catalog.browseTitles" numTitles=$monographs|@count}
         </div>
-        <div class="cs_select_pubState">
-            <input type="checkbox" id="includeForthcoming" name="includeForthcoming" value=1 autocomplete="off" checked>
-            <label for="includeForthcoming">Forthcoming</label><br>
-            <input type="checkbox" id="includeSuperseded" name="includeSuperseded" autocomplete="off" value=0>
-            <label for="includeSuperseded">Superseded</label><br>
-        </div>
+        {if $monograph->getData('pubState')}
+            <div class="cs_select_pubState">
+                <input type="checkbox" id="includeForthcoming" name="includeForthcoming" value=1 autocomplete="off" checked>
+                <label for="includeForthcoming">Forthcoming</label><br>
+                <input type="checkbox" id="includeSuperseded" name="includeSuperseded" autocomplete="off" value=0>
+                <label for="includeSuperseded">Superseded</label><br>
+            </div>
+         {/if}
     </div>
 
 	{* No published titles *}
@@ -84,7 +86,6 @@
                         <tr>
                             <td>
                         		<a {if $press}href="{url press=$press->getPath() page="catalog" op="book" path=$monograph->getBestId()}"{else}href="{url page="catalog" op="book" path=$monograph->getBestId()}"{/if} class="cover">
-                                    {* {assign var="cover coverImage" value=$monograph->getCurrentPublication()->getLocalizedData('coverImage')} *}
                                     <img class="cs_image" loading="lazy"
                                         src="{$monograph->getCurrentPublication()->getLocalizedCoverImageThumbnailUrl($monograph->getData('contextId'))}"
                                         alt="{$coverImage.altText|escape|default:'No alt text provided for this cover image.'}"
