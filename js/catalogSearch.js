@@ -44,6 +44,7 @@ function searchCatalog() {
 
 // sort catalog table
 catalog_table.onclick = function (e) {
+    $('.cs_pagination')[0].dataset.page = '1';
     if (e.target.tagName != 'TH') return;
 
     let th = e.target;
@@ -160,8 +161,8 @@ function updatePages() {
 
 function initTable() {
     if ($("#includeForthcoming").length > 0) {
-        $("#includeForthcoming").on("change", function(){updatePages();});
-        $("#includeSuperseded").on("change", function(){updatePages();});
+        $("#includeForthcoming").on("change", function(){$('.cs_pagination')[0].dataset.page = '1'; updatePages();});
+        $("#includeSuperseded").on("change", function(){$('.cs_pagination')[0].dataset.page = '1'; updatePages();});
     }
     searchCatalog();
     updatePages();
