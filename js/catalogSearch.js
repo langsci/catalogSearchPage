@@ -121,8 +121,6 @@ function updateTable() {
 
         // slice data for current page
         var totalPages = $('.cs_pageNumber').length/2 - 2;
-        var showPage = $('.cs_pagination')[0].dataset.page;
-
         var page = $('.cs_pagination')[0].dataset.page;
         var nBegin = (page - 1) * recordPerPage;  
         var nEnd = page * recordPerPage;
@@ -133,6 +131,9 @@ function updateTable() {
         // bind event to show subsquent pages
         $('.cs_pageNumber').on("click", function() {
             showPage =  $(this)[0].dataset.n;
+            if (showPage > totalPages) {
+                showPage = totalPages;
+            }
             if (showPage == "prev" && $('.cs_pagination')[0].dataset.page > 1) {
                 $('.cs_pagination')[0].dataset.page = parseInt($('.cs_pagination')[0].dataset.page) - 1;
             } else if (showPage == "next" && $('.cs_pagination')[0].dataset.page < totalPages) {
