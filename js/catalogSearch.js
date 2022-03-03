@@ -124,10 +124,11 @@ function updateTable() {
         var showPage = $('.cs_pagination')[0].dataset.page;
 
         var page = $('.cs_pagination')[0].dataset.page;
-        $('#catalog_table').find('tbody tr:has(td)').hide(); 
         var nBegin = (page - 1) * recordPerPage;  
         var nEnd = page * recordPerPage;
-        $('table tbody tr:has(td)').slice(nBegin, nEnd).show();
+        showData = $('table tbody tr:has(td):visible').slice(nBegin, nEnd);
+        $('#catalog_table').find('tbody tr:has(td)').hide();
+        showData.show();
 
         // bind event to show subsquent pages
         $('.cs_pageNumber').on("click", function() {
