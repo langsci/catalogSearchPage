@@ -122,6 +122,9 @@ function updateTable() {
         // slice data for current page
         var totalPages = $('.cs_pageNumber').length/2 - 2;
         var page = $('.cs_pagination')[0].dataset.page;
+        if (page > totalPages) {
+            page = totalPages;
+        }
         var nBegin = (page - 1) * recordPerPage;  
         var nEnd = page * recordPerPage;
         showData = $('table tbody tr:has(td):visible').slice(nBegin, nEnd);
