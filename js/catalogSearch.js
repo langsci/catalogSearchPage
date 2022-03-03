@@ -99,7 +99,6 @@ function updateTable() {
     var recordPerPage = $('#PageLimit, option:selected')[0].value;
 
     $('.cs_pageNumber').remove();
-    $('.cs_pagination')[0].dataset.page = 1;
 
     if (totalRows > recordPerPage) {
 
@@ -120,26 +119,27 @@ function updateTable() {
             $(this).removeClass('cs_focus');
         });
 
-        // show first page
-        $('table tbody tr:has(td)').slice(recordPerPage, totalRows).hide();
+        // slice data for current page
+        var totalPages = $('.cs_pageNumber').length/2 - 2;
+        var showPage = $('.cs_pagination')[0].dataset.page;
+
+        var page = $('.cs_pagination')[0].dataset.page;
+        $('#catalog_table').find('tbody tr:has(td)').hide(); 
+        var nBegin = (page - 1) * recordPerPage;  
+        var nEnd = page * recordPerPage;
+        $('table tbody tr:has(td)').slice(nBegin, nEnd).show();
 
         // bind event to show subsquent pages
         $('.cs_pageNumber').on("click", function() {
-            var totalPages = $('.cs_pageNumber').length - 2;
-
-            if ($(this)[0].dataset.n == "prev" && $('.cs_pagination')[0].dataset.page > 1) {
+            showPage =  $(this)[0].dataset.n;
+            if (showPage == "prev" && $('.cs_pagination')[0].dataset.page > 1) {
                 $('.cs_pagination')[0].dataset.page = parseInt($('.cs_pagination')[0].dataset.page) - 1;
-            } else if ($(this)[0].dataset.n == "next" && $('.cs_pagination')[0].dataset.page < totalPages) {
+            } else if (showPage == "next" && $('.cs_pagination')[0].dataset.page < totalPages) {
                 $('.cs_pagination')[0].dataset.page = parseInt($('.cs_pagination')[0].dataset.page) + 1;
-            } else if (parseInt($(this)[0].dataset.n)) {
-                $('.cs_pagination')[0].dataset.page = $(this)[0].dataset.n;
+            } else if (parseInt(showPage)) {
+                $('.cs_pagination')[0].dataset.page = showPage;
             };
-            
-            var page = $('.cs_pagination')[0].dataset.page;
-            $('#catalog_table').find('tbody tr:has(td)').hide(); 
-            var nBegin = (page - 1) * recordPerPage;  
-            var nEnd = page * recordPerPage;
-            $('table tbody tr:has(td)').slice(nBegin, nEnd).show();
+            updatePages();
         });
     } else {
         $('.cs_pagination').addClass('cs_border_none');
