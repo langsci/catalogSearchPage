@@ -125,7 +125,13 @@
                                 {/if}
                             </td>
                             <td class="cs_col cs_col_year">
-                                {$monograph->getDatePublished()|date_format:"Y"}
+                                {if $monograph->getData('pubState')}
+                                    {if $monograph->getData('pubState') != $smarty.const.PUB_STATE_FORTHCOMING}
+                                        {$monograph->getDatePublished()|date_format:"Y"}
+                                    {/if}
+                                {else}
+                                    {$monograph->getDatePublished()|date_format:"Y"}
+                                {/if}
                             </td>
                         </tr>
                     {/foreach}
