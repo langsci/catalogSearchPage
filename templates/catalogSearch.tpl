@@ -30,6 +30,7 @@
         </div>
         {if $monographs[0]->getData('pubState')}
             <div class="cs_select_pubState">
+                <span>{"Include in search:"}</span><br>
                 <input type="checkbox" id="includeForthcoming" name="includeForthcoming" value=1 autocomplete="off" checked>
                 <label for="includeForthcoming">Forthcoming</label><br>
                 <input type="checkbox" id="includeSuperseded" name="includeSuperseded" autocomplete="off" value=0>
@@ -138,14 +139,17 @@
                 </tbody>
             </table>
             <div id="pagination_bottom" class="cs_pagination" data-page="1">
-                <select id="pageLimits" class="cs_page_limits" onchange="updatePages()">
-                    {* <option value=2>2</option> dev option *}
-                    <option value=5>5</option>
-                    <option value=10>10</option>
-                    <option value=25 selected>25</option>
-                    <option value=50>50</option>
-                    <option value=150>150</option>
-                </select>
+                <div class="cs_page_limits">
+                    <label for="pagination_bottom" style="display:inline-block; width: 115px; text-align:right;">{"Results per page: "}<br></label>
+                    <select id="pageLimits" onchange="updatePages()">
+                        {* <option value=2>2</option> dev option *}
+                        <option value=5>5</option>
+                        <option value=10>10</option>
+                        <option value=25 selected>25</option>
+                        <option value=50>50</option>
+                        <option value=150>150</option>
+                    </select>
+                </div>
             </div>
         </div>
 	{/if}
