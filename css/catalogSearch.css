@@ -1,5 +1,6 @@
 .cs_image {
-    width: 80px;
+    width: 45px;
+    max-width: none;
     padding: 5px;
     text-align: center;
 }
