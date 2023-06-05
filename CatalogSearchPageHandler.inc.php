@@ -59,7 +59,6 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 			// Get the series for this monograph
 			$series = $seriesDao->getById( $monograph->getData('publications')[0]->getData('seriesId'),$context->getId());
 			if ($series) {
-				$monograph->setData('seriesTitle', $series->getLocalizedTitle());
 				$monograph->setData('seriesPath', $series->getData('path'));
 				if ($pubStatePlugin) {
 					$monograph->setData('pubStateLabel', $pubStatePlugin->getPubStateLabel($monograph));
@@ -74,7 +73,6 @@ class CatalogSearchPageHandler extends PKPCatalogHandler
 		}
 
 		uasort($monographs, function($a, $b) {
-			return $a->getCurrentPublication()->getLocalizedFullTitle() > $b->getCurrentPublication()->getLocalizedFullTitle() ? 1 : -1;
 		});
 
 		$templateMgr->assign(array(

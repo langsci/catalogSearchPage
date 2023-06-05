@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Daniel Silva Ferreira\n"
+"Language-Team: ABCD and FFLCH USP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-06-05T08:38:15+00:00\n"
+"PO-Revision-Date: 2023-06-05T08:38:15+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.catalogSearchPage.displayName"
+msgstr "Página de Pesquisa do Catálogo"
+
+msgid "plugins.generic.catalogSearchPage.description"
+msgstr "Adiciona uma \"Página do Catálogo\" fornecendo uma exibição de lista tabular, pesquisável e classificável."
+
+msgid "plugins.generic.catalogSearchPage.title"
+msgstr "Catalogo"
+
+msgid "plugins.generic.catalogSearchPage.noBooks"
+msgstr "Nenhum livro publicado"
+
+msgid "plugins.generic.catalogSearchPage.browseBooks"
+msgstr "{$numBook} livros publicados"
+
+msgid "plugins.generic.catalogSearchPage.LabelBook"
+msgstr "(1 livros)"
+
+msgid "plugins.generic.catalogSearchPage.LabelBooks"
+msgstr "({$nBooks} livros)"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelTitle"
+msgstr "Título"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelSeries"
+msgstr "Series"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelYear"
+msgstr "Ano"
+
+msgid "plugins.generic.catalogSearchPage.SearchPlaceholder"
+msgstr "Catálogo de pesquisa ..."
