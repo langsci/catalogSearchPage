@@ -107,12 +107,12 @@
                                                 {$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
                                             {/if}                                   
                                         {else}
-                                            <strong>{$monograph->getLocalizedFullTitle()|escape}</strong><br> <b>{$monograph->getLocalizedcopyrightHolder()|escape}</b>
+                                            <strong>{$monograph->getLocalizedFullTitle()|escape}</strong><br> 
                                         {/if}
                                     </a>
                                 </div>
                         		<div class="author">
-                                    {$monograph->getAuthorOrEditorString()|escape}
+                                    {$monograph->getAuthorOrEditorString()|escape}<br><b>{$monograph->getLocalizedcopyrightHolder()|escape}</b>
                                 </div>
                             </td>
                             <td class="cs_col_series">
