@@ -107,7 +107,7 @@
                                                 {$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
                                             {/if}                                   
                                         {else}
-                                            <strong>{$monograph->getLocalizedFullTitle()|escape}</strong><br> 
+                                            <strong>{$monograph->getLocalizedFullTitle()|escape}</strong>
                                         {/if}
                                     </a>
                                 </div>

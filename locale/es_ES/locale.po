@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-12-05T11:38:15+00:00\n"
+"PO-Revision-Date: 2020-12-05T11:38:15+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.catalogSearchPage.displayName"
+msgstr "Catalog Search Page"
+
+msgid "plugins.generic.catalogSearchPage.description"
+msgstr "Agrega una \"Página de catálogo\" que proporciona una vista de lista tabular, con capacidad de búsqueda y ordenable."
+
+msgid "plugins.generic.catalogSearchPage.title"
+msgstr "catálogo"
+
+msgid "plugins.generic.catalogSearchPage.noBooks"
+msgstr "No hay libros publicados"
+
+msgid "plugins.generic.catalogSearchPage.browseBooks"
+msgstr "{$numBook} libros publicados"
+
+msgid "plugins.generic.catalogSearchPage.LabelBook"
+msgstr "(1 libro)"
+
+msgid "plugins.generic.catalogSearchPage.LabelBooks"
+msgstr "({$nBooks} libros)"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelTitle"
+msgstr "Título"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelSeries"
+msgstr "Series"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelYear"
+msgstr "Año"
+
+msgid "plugins.generic.catalogSearchPage.SearchPlaceholder"
+msgstr "Buscar catálogo..."
