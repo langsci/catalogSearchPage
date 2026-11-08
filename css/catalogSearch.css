@@ -1,3 +1,41 @@
+.cs_search_form {
+    margin-bottom: 1em;
+}
+
+.cs_search_input {
+    margin-bottom: 0.5em;
+}
+
+.cs_search_input input[type="search"] {
+    max-width: 100%;
+}
+
+.cs_select_pubState {
+    border: 0;
+    margin: 0 0 0.5em;
+    padding: 0;
+}
+
+.cs_select_pubState legend {
+    display: inline;
+    float: left;
+    margin-right: 0.5em;
+    padding: 0;
+}
+
+.cs_select_pubState label {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.cs_page_limits label {
+    margin-right: 0.25em;
+}
+
+.cs_catalog_table {
+    width: 100%;
+}
+
 .cs_image {
     width: 45px;
     max-width: none;
@@ -5,63 +43,32 @@
     text-align: center;
 }
 
-.cs_search_input {
-    float:left !important;
-}
-
-.cs_catalog_table {
-    width: 100%;
-}
-
 .cs_col {
     text-align: center;
-    cursor: pointer;
 }
 
-.cs_col_year{
+.cs_col_year {
     width: 60px;
-    cursor: pointer;
 }
 
 .cs_col_series {
     text-align: left;
 }
 
+.cs_catalog_table th[aria-sort="ascending"] a::after {
+    content: "\00a0\25B2";
+}
+
+.cs_catalog_table th[aria-sort="descending"] a::after {
+    content: "\00a0\25BC";
+}
+
+.cs_catalog_table th[aria-sort="none"] a::after {
+    content: "\00a0\21C5";
+}
+
 .cs_pagination {
     text-align: center;
-    width: 100%;
-    clear: left;
-    border-top: 1px solid #ddd !important;
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     padding: 5px;
-}
-
-.cs_focus {
-    background-color: #1e6292;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.cs_pageNumber {
-    padding: 2px;
-}
-
-.cs_page_limits {
-    position: absolute;
-    left: 2%;
-}
-
-.cs_border_none {
-    border: transparent;
-}
-
-.cs_select_pubState {
-    clear: both;
-    display: flex;
-    margin-bottom: -50px;
-}
-
-div.cs_select_pubState > * {
-    margin: 0 2px;
 }

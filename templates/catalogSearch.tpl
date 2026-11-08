@@ -1,157 +1,115 @@
 {**
- * templates/catalogSearch.tpl adopted from templates/frontend/pages/catalog.tpl
+ * templates/catalogSearch.tpl
  *
- * Copyright (c) 2021 Language Science Press
+ * Copyright (c) 2021-2026 Language Science Press
  * Developed by Ronald Steffen
  * Distributed under the GNU GPL v3. For full terms see the file docs/LICENSE.
  *
- * @brief Display the page to view the catalog.
+ * @brief Searchable, sortable and paginated catalog table
  *
- * @uses $publishedSubmissions array List of published submissions
- * @uses $prevPage int The previous page number
- * @uses $nextPage int The next page number
- * @uses $showingStart int The number of the first item on this page
- * @uses $showingEnd int The number of the last item on this page
+ * @uses $rows array The books of the current page
+ * @uses $total int Number of books matching the search
+ * @uses $results VirtualArrayIterator Used for the page links
+ * @uses $query string The search phrase
+ * @uses $sortLinks array Header link and aria-sort value per column
+ * @uses $pageParams array Request parameters to keep in the page links
+ * @uses $pubStateEnabled bool Whether publication states are available
  *}
 {include file="frontend/components/header.tpl" pageTitle="navigation.catalog"}
 
-<link rel="stylesheet" href="{$baseurl}/plugins/generic/catalogSearchPage/css/catalogSearch.css" type="text/css" />
-
-<div class="page page_catalog">
+<div class="page page_catalog cs_page">
 	{include file="frontend/components/breadcrumbs.tpl" currentTitleKey="navigation.catalog"}
 	<h1>{translate key="navigation.catalog"}</h1>
 
-    <div>
-        <div class="monograph_count cs_search_input" >
-            <input type="text" id="searchPattern" value="" placeholder="{translate key="plugins.generic.catalogSearchPage.SearchPlaceholder"}" size=60>
-        </div>
-        <div id="monograph_count" class="monograph_count">
-            {translate key="catalog.browseTitles" numTitles=$monographs|@count}
-        </div>
-        {if $monographs[0]->getData('pubState')}
-            <div class="cs_select_pubState">
-                <span>{"Include in search:"}</span><br>
-                <input type="checkbox" id="includeForthcoming" name="includeForthcoming" value=1 autocomplete="off" checked>
-                <label for="includeForthcoming">Forthcoming</label><br>
-                <input type="checkbox" id="includeSuperseded" name="includeSuperseded" autocomplete="off" value=0>
-                <label for="includeSuperseded">Superseded</label><br>
-            </div>
-         {/if}
-    </div>
+	<form class="cs_search_form" id="cs_search_form" method="get" action="{url page="catalogSearch"}" role="search">
+		<input type="hidden" name="sort" value="{$sort|escape}">
+		<input type="hidden" name="dir" value="{$dir|escape}">
+		<div class="cs_search_input">
+			<label for="cs_query" class="pkp_screen_reader">{translate key="plugins.generic.catalogSearchPage.SearchLabel"}</label>
+			<input type="search" id="cs_query" name="query" value="{$query|escape}" placeholder="{translate key="plugins.generic.catalogSearchPage.SearchPlaceholder"}" size="60">
+			<button type="submit" class="pkp_button">{translate key="common.search"}</button>
+		</div>
 
-	{* No published titles *}
-	{if !$monographs|@count}
-		<h2>
-			{translate key="catalog.category.heading"}
-		</h2>
-		<p>{translate key="catalog.noTitles"}</p>
+		{if $pubStateEnabled}
+			<fieldset class="cs_select_pubState">
+				<legend>{translate key="plugins.generic.catalogSearchPage.includeInSearch"}</legend>
+				<input type="hidden" name="filter" value="1">
+				<label>
+					<input type="checkbox" name="forthcoming" value="1"{if $includeForthcoming} checked{/if}>
+					{translate key="plugins.generic.catalogSearchPage.includeForthcoming"}
+				</label>
+				<label>
+					<input type="checkbox" name="superseded" value="1"{if $includeSuperseded} checked{/if}>
+					{translate key="plugins.generic.catalogSearchPage.includeSuperseded"}
+				</label>
+			</fieldset>
+		{/if}
 
-	{* Monograph List *}
+		<div class="cs_page_limits">
+			<label for="cs_per_page">{translate key="plugins.generic.catalogSearchPage.perPage"}</label>
+			<select id="cs_per_page" name="perPage">
+				{foreach from=$perPageOptions item=option}
+					<option value="{$option|escape}"{if $option == $perPage} selected{/if}>{$option|escape}</option>
+				{/foreach}
+			</select>
+		</div>
+	</form>
+
+	<p id="cs_result_count" class="monograph_count" aria-live="polite">
+		{translate key="catalog.browseTitles" numTitles=$total}
+	</p>
+
+	{if !$rows|@count}
+		<p>{translate key="plugins.generic.catalogSearchPage.noResults"}</p>
 	{else}
-		{if !$heading}
-	        {assign var="heading" value="h2"}
-        {/if}
-        {if !$titleKey}
-            {assign var="monographHeading" value=$heading}
-        {elseif $heading == 'h2'}
-            {assign var="monographHeading" value="h3"}
-        {elseif $heading == 'h3'}
-            {assign var="monographHeading" value="h4"}
-        {else}
-            {assign var="monographHeading" value="h5"}
-        {/if}
+		<table id="catalog_table" class="cs_catalog_table">
+			<thead>
+				<tr>
+					<th scope="col" class="cs_col"><span class="pkp_screen_reader">{translate key="monograph.coverImage"}</span></th>
+					<th scope="col" class="cs_col" aria-sort="{$sortLinks.title.ariaSort}">
+						<a href="{$sortLinks.title.url|escape}">{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</a>
+					</th>
+					<th scope="col" class="cs_col" aria-sort="{$sortLinks.series.ariaSort}">
+						<a href="{$sortLinks.series.url|escape}">{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</a>
+					</th>
+					<th scope="col" class="cs_col_year" aria-sort="{$sortLinks.year.ariaSort}">
+						<a href="{$sortLinks.year.url|escape}">{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</a>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$rows item=row}
+					{capture assign=bookUrl}{url page="catalog" op="book" path=$row.bestId}{/capture}
+					<tr data-pubstate="{$row.pubState|escape}">
+						<td>
+							{if $row.coverUrl}
+								<a href="{$bookUrl|escape}" class="cover">
+									<img class="cs_image" loading="lazy" src="{$row.coverUrl|escape}" alt="{$row.coverAlt|escape}">
+								</a>
+							{/if}
+						</td>
+						<td>
+							<div class="title">
+								<a href="{$bookUrl|escape}">
+									{if $row.pubStateLabel}<sup class="pubState_label pubState_{$row.pubState|escape}">{$row.pubStateLabel|escape}</sup> {/if}<strong>{$row.title|strip_unsafe_html}</strong>
+								</a>
+							</div>
+							<div class="author">{$row.authors|escape}</div>
+						</td>
+						<td class="cs_col_series">
+							{if $row.seriesPath}
+								<a href="{url page="catalog" op="series" path=$row.seriesPath}" title="{$row.seriesTitle|escape}">{$row.seriesPath|escape|upper}</a>
+							{/if}
+						</td>
+						<td class="cs_col cs_col_year">{$row.year|escape}</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
 
-        <div class="cmp_monographs_list">
-
-            {* Optional title *}
-            {if $titleKey}
-                <{$heading} class="title">
-                    {translate key=$titleKey}
-                </{$heading}>
-            {/if}
-
-            <div id="pagination_top" class="cs_pagination" data-page="1">
-            </div>
-
-            <table id="catalog_table" class="cs_catalog_table paginated">
-                <thead>
-                    <tr>
-                        <th data-type="" class="cs_col"></th>
-                        <th id="title" data-type="title-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelTitle"}</th>
-                        <th id="series" data-type="series-asc" class="cs_col">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelSeries"}</th>
-                        <th id="year" data-type="year-asc" class="cs_col_year">&#8645;&nbsp;{translate key="plugins.generic.catalogSearchPage.TableColLabelYear"}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach name="monographListLoop" from=$monographs item=monograph}
-                        <tr>
-                            <td>
-                        		<a {if $press}href="{url press=$press->getPath() page="catalog" op="book" path=$monograph->getBestId()}"{else}href="{url page="catalog" op="book" path=$monograph->getBestId()}"{/if} class="cover">
-                                    <img class="cs_image" loading="lazy"
-                                        src="{$monograph->getCurrentPublication()->getLocalizedCoverImageThumbnailUrl($monograph->getData('contextId'))}"
-                                        alt="{$coverImage.altText|escape|default:'No alt text provided for this cover image.'}"
-                                    >
-                                </a>
-                            </td>
-                            <td>
-                                <div class="title">
-                                    <a {if $press}href="{url press=$press->getPath() page="catalog" op="book" path=$monograph->getBestId()}"{else}href="{url page="catalog" op="book" path=$monograph->getBestId()}"{/if}>
-                                        {if $monograph->getData('pubState')}
-                                            {if $monograph->getData('pubState') == $smarty.const.PUB_STATE_FORTHCOMING}
-                                                <p id="pubState" style="display: none;">{$smarty.const.PUB_STATE_FORTHCOMING}</p>
-                                                <span class="pubState_forthcoming">{$monograph->getData('pubStateLabel')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
-                                            {elseif $monograph->getData('pubState') == $smarty.const.PUB_STATE_SUPERSEDED}
-                                                <p id="pubState" style="display: none;">{$smarty.const.PUB_STATE_SUPERSEDED}</p>
-                                                <span class="pubState_superseded">{$monograph->getData('pubStateLabel')|escape}</span>{$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
-                                            {else}
-                                                {$monograph->getLocalizedFullTitle()|regex_replace:"/Forthcoming: |Superseded: /":""|escape}
-                                            {/if}                                   
-                                        {else}
-                                            <strong>{$monograph->getLocalizedFullTitle()|escape}</strong>
-                                        {/if}
-                                    </a>
-                                </div>
-                        		<div class="author">
-                                    {$monograph->getAuthorOrEditorString()|escape}
-                                </div>
-                            </td>
-                            <td class="cs_col_series">
-                       	    	{if $monograph->getData('seriesPath')}
-                                    <div class="seriesPosition tooltip" title="{$monograph->getData('seriesTitle')|escape}">
-                                        {assign var=pubs value=$monograph->getData('publications')}
-                                        <a {if $press}href="{url press=$press->getPath() page="catalog" op="series" path=$monograph->getData('seriesPath')}"{else}href="{url page="catalog" op="series" path=$monograph->getData('seriesPath')}"{/if}>
-                                            {$monograph->getData('seriesPath')|escape|upper}
-                                        </a>
-                                    </div>
-                                {/if}
-                            </td>
-                            <td class="cs_col cs_col_year">
-                                {if $monograph->getData('pubState')}
-                                    {if $monograph->getData('pubState') != $smarty.const.PUB_STATE_FORTHCOMING}
-                                        {$monograph->getDatePublished()|date_format:"Y"}
-                                    {/if}
-                                {else}
-                                    {$monograph->getDatePublished()|date_format:"Y"}
-                                {/if}
-                            </td>
-                        </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-            <div id="pagination_bottom" class="cs_pagination" data-page="1">
-                <div class="cs_page_limits">
-                    <label for="pagination_bottom" style="display:inline-block; width: 115px; text-align:right;">{"Results per page: "}<br></label>
-                    <select id="pageLimits" onchange="updatePages()">
-                        {* <option value=2>2</option> dev option *}
-                        <option value=5>5</option>
-                        <option value=10>10</option>
-                        <option value=25 selected>25</option>
-                        <option value=50>50</option>
-                        <option value=150>150</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+		<div class="cmp_pagination cs_pagination">
+			{page_links anchor="catalog_table" iterator=$results name="catalogSearch" params=$pageParams}
+		</div>
 	{/if}
 </div><!-- .page -->
 

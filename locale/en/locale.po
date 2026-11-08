@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-28T21:00:00+00:00\n"
+"PO-Revision-Date: 2026-10-28T21:00:00+00:00\n"
+"Language: en\n"
+
+msgid "plugins.generic.catalogSearchPage.displayName"
+msgstr "Catalog Search Page"
+
+msgid "plugins.generic.catalogSearchPage.description"
+msgstr "Adds a \"Catalog Page\" providing a tabular, searchable and sortable list view."
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelTitle"
+msgstr "Title"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelSeries"
+msgstr "Series"
+
+msgid "plugins.generic.catalogSearchPage.TableColLabelYear"
+msgstr "Year"
+
+msgid "plugins.generic.catalogSearchPage.SearchLabel"
+msgstr "Search the catalog"
+
+msgid "plugins.generic.catalogSearchPage.SearchPlaceholder"
+msgstr "Search titles, authors, keywords, abstracts ..."
+
+msgid "plugins.generic.catalogSearchPage.includeInSearch"
+msgstr "Include in search:"
+
+msgid "plugins.generic.catalogSearchPage.includeForthcoming"
+msgstr "Forthcoming"
+
+msgid "plugins.generic.catalogSearchPage.includeSuperseded"
+msgstr "Superseded"
+
+msgid "plugins.generic.catalogSearchPage.perPage"
+msgstr "Results per page:"
+
+msgid "plugins.generic.catalogSearchPage.noResults"
+msgstr "No titles match your search."

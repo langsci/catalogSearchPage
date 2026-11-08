@@ -15,9 +15,9 @@
 <version>
 	<application>catalogSearchPage</application>
 	<type>plugins.generic</type>
-	<release>1.0.0.0</release>
-	<date>2021-11-27</date>
+	<release>2.0.0.0</release>
+	<date>2026-10-28</date>
 	<lazy-load>1</lazy-load>
 	<sitewide>0</sitewide>
-	<class>catalogSearchPagePlugin</class>
+	<class>CatalogSearchPagePlugin</class>
 </version>
